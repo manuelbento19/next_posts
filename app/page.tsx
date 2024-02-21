@@ -1,6 +1,6 @@
 import { Suspense } from "react";
-import ClientForm from "./ClientForm";
-import PostList from "./PostList";
+import {ClientForm} from "./_components/ClientForm";
+import {PostList} from "./_components/PostList";
 
 export default async function Home() {
 
