@@ -3,19 +3,22 @@ import React from 'react'
 import { Post } from '../types'
 import { revalidateTag } from 'next/cache'
 
+type CreatePostDTO = Pick<Post,"title"|"body"|"userId">
+
 export function ClientForm() {
 
   const registerPost = async (form: FormData) => {
     "use server"
-    const data: Pick<Post,"title"|"body"> = {
+    const data: CreatePostDTO = {
       title: String(form.get("title")),
       body: String(form.get("body")),
+      userId: 1
     } 
-    const request = await fetch("https://jsonplaceholder.typicode.com/posts",{
+    await fetch("https://dummyjson.com/posts/add",{
       method: "POST",
+      headers: { 'Content-Type': 'application/json'},
       body: JSON.stringify(data)
     })
-    console.log(await request.text())
     revalidateTag("posts")
   }
 
@@ -29,7 +32,7 @@ export function ClientForm() {
         <label htmlFor="body" className='text-sm font-normal text-zinc-800'>Body</label>
         <textarea required id="body" name='body' className='border border-gray-300 outline-blue-500 outline-1'></textarea>
       </div>
-      <button className='bg-blue-600 text-white text-sm px-2 py-2 border-0 rounded-sm transition hover:brightness-90'>Register</button>
+      <button type='submit' className='bg-blue-600 text-white text-sm px-2 py-2 border-0 rounded-sm transition hover:brightness-90'>Register</button>
     </form>
   )
 }

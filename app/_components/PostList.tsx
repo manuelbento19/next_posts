@@ -3,6 +3,7 @@ import { Post } from '@/app/types'
 import Link from 'next/link'
 import { BsArrowRight } from 'react-icons/bs'
 import { BiNews } from 'react-icons/bi'
+import Tag from './Tag'
 
 export async function PostList() {
     const response = await fetch("https://dummyjson.com/posts",{
@@ -27,13 +28,8 @@ export async function PostList() {
                         <span className="block transition-all group-hover:ms-0.5"><BsArrowRight/></span>
                     </Link>
                     <div className="mt-4 flex flex-wrap gap-1">
-                    {item.tags && item.tags.map((tag,index)=>(
-                        <span key={index} className="whitespace-nowrap rounded-full bg-blue-100 px-2.5 py-0.5 text-xs text-blue-600">
-                        {tag}
-                        </span>
-                    ))}
+                    {item.tags && item.tags.map((tag,index)=><Tag key={index} label={tag}/>)}
                     </div>
-                   
                 </li>
             ))}
         </ul>
