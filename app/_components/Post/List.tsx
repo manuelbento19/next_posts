@@ -3,7 +3,7 @@ import { Post } from '@/app/types'
 import { PostItem } from './Item'
 
 export async function PostList() {
-    const response = await fetch("https://dummyjson.com/posts",{
+    const response = await fetch("https://dummyjson.com/posts?limit=200",{
         next: {
             tags: ["posts"]
         }
